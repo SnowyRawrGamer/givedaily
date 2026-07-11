@@ -14,6 +14,7 @@ import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as SubscribeRouteImport } from './routes/subscribe'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as FreeEntryRouteImport } from './routes/free-entry'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WinsRoute = WinsRouteImport.update({
@@ -41,6 +42,11 @@ const FreeEntryRoute = FreeEntryRouteImport.update({
   path: '/free-entry',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,6 +55,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/free-entry': typeof FreeEntryRoute
   '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/free-entry': typeof FreeEntryRoute
   '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/free-entry': typeof FreeEntryRoute
   '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
@@ -76,16 +85,25 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/free-entry'
     | '/history'
     | '/subscribe'
     | '/wallet'
     | '/wins'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/free-entry' | '/history' | '/subscribe' | '/wallet' | '/wins'
+  to:
+    | '/'
+    | '/admin'
+    | '/free-entry'
+    | '/history'
+    | '/subscribe'
+    | '/wallet'
+    | '/wins'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/free-entry'
     | '/history'
     | '/subscribe'
@@ -95,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   FreeEntryRoute: typeof FreeEntryRoute
   HistoryRoute: typeof HistoryRoute
   SubscribeRoute: typeof SubscribeRoute
@@ -139,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FreeEntryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -151,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   FreeEntryRoute: FreeEntryRoute,
   HistoryRoute: HistoryRoute,
   SubscribeRoute: SubscribeRoute,
