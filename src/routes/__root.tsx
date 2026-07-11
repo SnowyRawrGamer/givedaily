@@ -79,13 +79,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "givedaily — Daily cash giveaways, no purchase necessary" },
-      { name: "description", content: "Enter free daily cash draws with a skill-testing question. Compliant with Canadian and US sweepstakes law." },
+      { title: "Lovable App" },
+      { name: "description", content: "Daily Prize Hub is a web application for daily subscription giveaways, legally structured for international sweepstakes." },
       { name: "author", content: "givedaily" },
-      { property: "og:title", content: "givedaily — Daily cash giveaways" },
-      { property: "og:description", content: "Free daily cash draws. Legally compliant sweepstakes with no purchase necessary." },
+      { property: "og:title", content: "Lovable App" },
+      { property: "og:description", content: "Daily Prize Hub is a web application for daily subscription giveaways, legally structured for international sweepstakes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "twitter:description", content: "Daily Prize Hub is a web application for daily subscription giveaways, legally structured for international sweepstakes." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5bff58e6-24ba-4704-9855-c38ee22db0ed/id-preview-88444037--7e85e52a-0e44-4ba8-924c-28df7dd5155e.lovable.app-1783807504184.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5bff58e6-24ba-4704-9855-c38ee22db0ed/id-preview-88444037--7e85e52a-0e44-4ba8-924c-28df7dd5155e.lovable.app-1783807504184.png" },
     ],
     links: [
       {
