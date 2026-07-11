@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WinsRouteImport } from './routes/wins'
 import { Route as SubscribeRouteImport } from './routes/subscribe'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as FreeEntryRouteImport } from './routes/free-entry'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WinsRoute = WinsRouteImport.update({
+  id: '/wins',
+  path: '/wins',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SubscribeRoute = SubscribeRouteImport.update({
   id: '/subscribe',
   path: '/subscribe',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/free-entry': typeof FreeEntryRoute
   '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
+  '/wins': typeof WinsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/free-entry': typeof FreeEntryRoute
   '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
+  '/wins': typeof WinsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/free-entry': typeof FreeEntryRoute
   '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
+  '/wins': typeof WinsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/free-entry' | '/history' | '/subscribe'
+  fullPaths: '/' | '/free-entry' | '/history' | '/subscribe' | '/wins'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/free-entry' | '/history' | '/subscribe'
-  id: '__root__' | '/' | '/free-entry' | '/history' | '/subscribe'
+  to: '/' | '/free-entry' | '/history' | '/subscribe' | '/wins'
+  id: '__root__' | '/' | '/free-entry' | '/history' | '/subscribe' | '/wins'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +76,18 @@ export interface RootRouteChildren {
   FreeEntryRoute: typeof FreeEntryRoute
   HistoryRoute: typeof HistoryRoute
   SubscribeRoute: typeof SubscribeRoute
+  WinsRoute: typeof WinsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wins': {
+      id: '/wins'
+      path: '/wins'
+      fullPath: '/wins'
+      preLoaderRoute: typeof WinsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/subscribe': {
       id: '/subscribe'
       path: '/subscribe'
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   FreeEntryRoute: FreeEntryRoute,
   HistoryRoute: HistoryRoute,
   SubscribeRoute: SubscribeRoute,
+  WinsRoute: WinsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
