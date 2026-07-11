@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SubscribeRouteImport } from './routes/subscribe'
+import { Route as HistoryRouteImport } from './routes/history'
 import { Route as FreeEntryRouteImport } from './routes/free-entry'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SubscribeRoute = SubscribeRouteImport.update({
   id: '/subscribe',
   path: '/subscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FreeEntryRoute = FreeEntryRouteImport.update({
@@ -32,30 +38,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/free-entry': typeof FreeEntryRoute
+  '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/free-entry': typeof FreeEntryRoute
+  '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/free-entry': typeof FreeEntryRoute
+  '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/free-entry' | '/subscribe'
+  fullPaths: '/' | '/free-entry' | '/history' | '/subscribe'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/free-entry' | '/subscribe'
-  id: '__root__' | '/' | '/free-entry' | '/subscribe'
+  to: '/' | '/free-entry' | '/history' | '/subscribe'
+  id: '__root__' | '/' | '/free-entry' | '/history' | '/subscribe'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FreeEntryRoute: typeof FreeEntryRoute
+  HistoryRoute: typeof HistoryRoute
   SubscribeRoute: typeof SubscribeRoute
 }
 
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/subscribe'
       fullPath: '/subscribe'
       preLoaderRoute: typeof SubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/free-entry': {
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FreeEntryRoute: FreeEntryRoute,
+  HistoryRoute: HistoryRoute,
   SubscribeRoute: SubscribeRoute,
 }
 export const routeTree = rootRouteImport
