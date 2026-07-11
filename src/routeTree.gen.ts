@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SubscribeRouteImport } from './routes/subscribe'
 import { Route as FreeEntryRouteImport } from './routes/free-entry'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SubscribeRoute = SubscribeRouteImport.update({
+  id: '/subscribe',
+  path: '/subscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FreeEntryRoute = FreeEntryRouteImport.update({
   id: '/free-entry',
   path: '/free-entry',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/free-entry': typeof FreeEntryRoute
+  '/subscribe': typeof SubscribeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/free-entry': typeof FreeEntryRoute
+  '/subscribe': typeof SubscribeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/free-entry': typeof FreeEntryRoute
+  '/subscribe': typeof SubscribeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/free-entry'
+  fullPaths: '/' | '/free-entry' | '/subscribe'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/free-entry'
-  id: '__root__' | '/' | '/free-entry'
+  to: '/' | '/free-entry' | '/subscribe'
+  id: '__root__' | '/' | '/free-entry' | '/subscribe'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FreeEntryRoute: typeof FreeEntryRoute
+  SubscribeRoute: typeof SubscribeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/subscribe': {
+      id: '/subscribe'
+      path: '/subscribe'
+      fullPath: '/subscribe'
+      preLoaderRoute: typeof SubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/free-entry': {
       id: '/free-entry'
       path: '/free-entry'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FreeEntryRoute: FreeEntryRoute,
+  SubscribeRoute: SubscribeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
