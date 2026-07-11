@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WinsRouteImport } from './routes/wins'
+import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as SubscribeRouteImport } from './routes/subscribe'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as FreeEntryRouteImport } from './routes/free-entry'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const WinsRoute = WinsRouteImport.update({
   id: '/wins',
   path: '/wins',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletRoute = WalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SubscribeRoute = SubscribeRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/free-entry': typeof FreeEntryRoute
   '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
+  '/wallet': typeof WalletRoute
   '/wins': typeof WinsRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/free-entry': typeof FreeEntryRoute
   '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
+  '/wallet': typeof WalletRoute
   '/wins': typeof WinsRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,28 @@ export interface FileRoutesById {
   '/free-entry': typeof FreeEntryRoute
   '/history': typeof HistoryRoute
   '/subscribe': typeof SubscribeRoute
+  '/wallet': typeof WalletRoute
   '/wins': typeof WinsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/free-entry' | '/history' | '/subscribe' | '/wins'
+  fullPaths:
+    | '/'
+    | '/free-entry'
+    | '/history'
+    | '/subscribe'
+    | '/wallet'
+    | '/wins'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/free-entry' | '/history' | '/subscribe' | '/wins'
-  id: '__root__' | '/' | '/free-entry' | '/history' | '/subscribe' | '/wins'
+  to: '/' | '/free-entry' | '/history' | '/subscribe' | '/wallet' | '/wins'
+  id:
+    | '__root__'
+    | '/'
+    | '/free-entry'
+    | '/history'
+    | '/subscribe'
+    | '/wallet'
+    | '/wins'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +98,7 @@ export interface RootRouteChildren {
   FreeEntryRoute: typeof FreeEntryRoute
   HistoryRoute: typeof HistoryRoute
   SubscribeRoute: typeof SubscribeRoute
+  WalletRoute: typeof WalletRoute
   WinsRoute: typeof WinsRoute
 }
 
@@ -86,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/wins'
       fullPath: '/wins'
       preLoaderRoute: typeof WinsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wallet': {
+      id: '/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof WalletRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/subscribe': {
@@ -124,6 +154,7 @@ const rootRouteChildren: RootRouteChildren = {
   FreeEntryRoute: FreeEntryRoute,
   HistoryRoute: HistoryRoute,
   SubscribeRoute: SubscribeRoute,
+  WalletRoute: WalletRoute,
   WinsRoute: WinsRoute,
 }
 export const routeTree = rootRouteImport
