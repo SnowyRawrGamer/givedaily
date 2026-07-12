@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Wallet as WalletIcon, ArrowDownToLine, Trophy } from "lucide-react";
 
-const THRESHOLD = 25;
+const THRESHOLD = 5;
 
 export const Route = createFileRoute("/wallet")({ component: () => <AppShell><Wallet /></AppShell> });
 
